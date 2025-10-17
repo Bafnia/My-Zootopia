@@ -6,20 +6,26 @@ def load_data(file_path):
         return json.load(handle)
 
 def generate_animals_html(data):
-    """Generates HTML <li> items with animal information"""
+    """Generates HTML <li> items with styled animal information"""
     output = ""
     for animal in data:
         output += '<li class="cards__item">\n'
+        # Titel
         if "name" in animal:
-            output += f"Name: {animal['name']}<br/>\n"
+            output += f'  <div class="card__title">{animal["name"]}</div>\n'
+
+        # Details
+        output += '  <p class="card__text">\n'
         if "characteristics" in animal:
             if "diet" in animal["characteristics"]:
-                output += f"Diet: {animal['characteristics']['diet']}<br/>\n"
+                output += f'      <strong>Diet:</strong> {animal["characteristics"]["diet"]}<br/>\n'
             if "type" in animal["characteristics"]:
-                output += f"Type: {animal['characteristics']['type']}<br/>\n"
+                output += f'      <strong>Type:</strong> {animal["characteristics"]["type"]}<br/>\n'
         if "locations" in animal and len(animal["locations"]) > 0:
-            output += f"Location: {animal['locations'][0]}<br/>\n"
-        output += "</li>\n"
+            output += f'      <strong>Location:</strong> {animal["locations"][0]}<br/>\n'
+        output += '  </p>\n'
+
+        output += '</li>\n'
     return output
 
 if __name__ == "__main__":
@@ -38,4 +44,4 @@ if __name__ == "__main__":
     with open("animals.html", "w", encoding="utf-8") as f:
         f.write(filled_html)
 
-    print("✅ animals.html mit <li>-Elementen wurde erstellt. Im Browser öffnen, um das Design zu sehen!")
+    print("✅ Fertig! animals.html mit Karten-Design erstellt.")
